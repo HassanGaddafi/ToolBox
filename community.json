@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://github.com",
+    "name": "GitHub",
+    "desc": "استضافة الكود والمشاريع مفتوحة المصدر",
+    "cat": "تطوير"
+  },
+  {
+    "url": "https://stackoverflow.com",
+    "name": "Stack Overflow",
+    "desc": "أسئلة وأجوبة المبرمجين لحل الأخطاء",
+    "cat": "تطوير"
+  },
+  {
+    "url": "https://developer.mozilla.org",
+    "name": "MDN",
+    "desc": "مرجع HTML وCSS وJavaScript الرسمي",
+    "cat": "تطوير"
+  },
+  {
+    "url": "https://regex101.com",
+    "name": "Regex101",
+    "desc": "تجربة وشرح التعبيرات النمطية",
+    "cat": "تطوير"
+  },
+  {
+    "url": "https://jwt.io",
+    "name": "JWT.io",
+    "desc": "فك وفحص توكنات JWT",
+    "cat": "تطوير"
+  },
+  {
+    "url": "https://shodan.io",
+    "name": "Shodan",
+    "desc": "محرك بحث للأجهزة والخدمات المكشوفة على الإنترنت",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://virustotal.com",
+    "name": "VirusTotal",
+    "desc": "فحص الملفات والروابط ضد عشرات محركات الحماية",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://cyberchef.org",
+    "name": "CyberChef",
+    "desc": "تشفير وفك وتحويل البيانات بسلاسل عمليات",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://exploit-db.com",
+    "name": "Exploit-DB",
+    "desc": "قاعدة بيانات ثغرات وأكواد استغلال",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://book.hacktricks.xyz",
+    "name": "HackTricks",
+    "desc": "شروحات وحيل اختبار الاختراق",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://owasp.org",
+    "name": "OWASP",
+    "desc": "معايير وإرشادات أمن تطبيقات الويب",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://cve.org",
+    "name": "CVE",
+    "desc": "سجل الثغرات الأمنية المعروفة",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://nvd.nist.gov",
+    "name": "NVD",
+    "desc": "تفاصيل وتقييم CVSS للثغرات",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://crt.sh",
+    "name": "crt.sh",
+    "desc": "البحث في شهادات SSL لاكتشاف النطاقات الفرعية",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://urlscan.io",
+    "name": "urlscan.io",
+    "desc": "فحص وتحليل سلوك الروابط المشبوهة",
+    "cat": "أمن"
+  },
+  {
+    "url": "https://hackthebox.com",
+    "name": "Hack The Box",
+    "desc": "منصة تدريب عملي على الاختراق",
+    "cat": "تعلم"
+  },
+  {
+    "url": "https://tryhackme.com",
+    "name": "TryHackMe",
+    "desc": "غرف تعليمية موجهة للأمن السيبراني",
+    "cat": "تعلم"
+  },
+  {
+    "url": "https://claude.ai",
+    "name": "Claude",
+    "desc": "مساعد ذكاء اصطناعي للكتابة والكود",
+    "cat": "ذكاء اصطناعي"
+  }
+]

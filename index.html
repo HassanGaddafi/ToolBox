@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1117" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="الأدوات">
+<title>صندوق الأدوات</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#14181f;--mut:#667085;--bd:#e3e6ec;--ac:#2563eb;--acx:#fff;--dg:#dc2626;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1117;--card:#171b23;--tx:#e8ebf0;--mut:#98a2b3;--bd:#272d38;--ac:#4f8cff;--acx:#0b0f17;--dg:#f87171}}
+:root[data-theme="dark"]{--bg:#0e1117;--card:#171b23;--tx:#e8ebf0;--mut:#98a2b3;--bd:#272d38;--ac:#4f8cff;--acx:#0b0f17;--dg:#f87171}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;line-height:1.5}
+.w{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:22px;margin:0 0 4px}.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:9px 12px;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ac);outline-offset:-1px}
+#q{flex:1 1 200px}
+button{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:9px 14px}
+button.p{background:var(--ac);color:var(--acx);border-color:var(--ac);font-weight:600}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:5px 12px;border-radius:20px;font-size:13px}
+.tab.on{background:var(--ac);color:var(--acx);border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.c{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;gap:12px;text-decoration:none;color:inherit;transition:transform .12s,border-color .12s}
+.c:hover{transform:translateY(-2px);border-color:var(--ac)}
+.ic{position:relative;flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:20px;overflow:hidden}
+.ic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff;padding:7px}
+.nm{font-weight:600;font-size:15px}.ds{color:var(--mut);font-size:13px;margin-top:2px}
+.ct{display:inline-block;margin-top:6px;font-size:11px;color:var(--mut);border:1px solid var(--bd);border-radius:8px;padding:0 7px}
+.x{position:absolute;top:8px;left:8px;display:none;gap:4px}.c:hover .x,.c:focus-within .x{display:flex}
+.x button{padding:2px 8px;font-size:12px}
+.f{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:16px;display:none;gap:8px;grid-template-columns:1fr 1fr}
+.f.on{display:grid}.f .full{grid-column:1/-1}
+@media(max-width:560px){.f{grid-template-columns:1fr}}
+.hint{color:var(--mut);font-size:12px}.empty{text-align:center;color:var(--mut);padding:40px 0}
+.vt{display:flex;gap:6px;margin-bottom:12px}.vt .tab{font-size:14px;padding:6px 16px}.rs{background:var(--card);border:1px solid var(--ac);border-radius:14px;padding:14px;margin-bottom:16px;display:none}.rs.on{display:block}.rs h3{margin:0 0 10px;font-size:15px}.why{color:var(--ac);font-size:12.5px;margin-top:4px}.ad{margin-top:8px;padding:3px 10px;font-size:12px}.sg{opacity:.95;border-style:dashed}
+.foot{margin-top:24px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>🧰 صندوق الأدوات</h1>
+<p class="sub">كل مواقعك وأدواتك في مكان واحد. اضغط على الأيقونة لفتح الموقع.</p>
+<div class="bar">
+<input id="q" type="search" placeholder="ابحث، أو اكتب احتياجك: «عاوز أفحص ملف مشبوه»">
+<button class="p" id="sb" hidden>✨ بحث ذكي</button>
+<button id="ib" hidden>⬇ تثبيت التطبيق</button>
+<button class="p" id="tg">＋ إضافة موقع</button>
+</div>
+<form class="f" id="fm" onsubmit="return false">
+<input id="fu" class="full" placeholder="الرابط أو اسم الموقع (مثال: shodan.io)" dir="ltr">
+<input id="fn" placeholder="الاسم (اختياري، يُملأ تلقائيًا)">
+<input id="fc" list="cl" placeholder="التصنيف (اختر أو اكتب جديد)">
+<datalist id="cl"></datalist>
+<textarea id="fd" class="full" rows="2" placeholder="وظيفته في سطر واحد (اختياري، يُملأ تلقائيًا للمواقع المعروفة)"></textarea>
+<label class="full hint" id="fsl" hidden><input type="checkbox" id="fs" checked style="padding:0"> شارك الموقع مع المجتمع ليستفيد منه الآخرون</label>
+<div class="full hint" id="fh"></div>
+<button type="button" id="ai" hidden>✨ وصف تلقائي</button>
+<button type="button" class="p" id="sv">حفظ</button>
+<button type="button" id="cn">إلغاء</button>
+</form>
+<div class="vt" id="vt"></div>
+<div class="rs" id="rs"></div>
+<div class="tabs" id="tabs"></div>
+<div class="grid" id="g"></div>
+<div class="foot">
+<button id="ex">تصدير JSON</button>
+<button id="im">استيراد JSON</button>
+<input type="file" id="fi" accept="application/json" hidden>
+<span class="hint">قائمتك محفوظة في متصفحك. قائمة المجتمع مشتركة.</span>
+</div>
+</div>
+<script>
+(function(){
+var KEY="toolbox.v1";
+// ضع هنا رابط الـ Cloudflare Worker (مثال: "https://toolbox-ai.YOURNAME.workers.dev"). اتركه فارغًا لتعطيل الذكاء الاصطناعي.
+var WORKER="";
+var KNOWN={
+"github.com":["GitHub","استضافة الكود والمشاريع مفتوحة المصدر","تطوير"],
+"stackoverflow.com":["Stack Overflow","أسئلة وأجوبة المبرمجين لحل الأخطاء","تطوير"],
+"developer.mozilla.org":["MDN","مرجع HTML وCSS وJavaScript الرسمي","تطوير"],
+"regex101.com":["Regex101","تجربة وشرح التعبيرات النمطية","تطوير"],
+"jwt.io":["JWT.io","فك وفحص توكنات JWT","تطوير"],
+"shodan.io":["Shodan","محرك بحث للأجهزة والخدمات المكشوفة على الإنترنت","أمن"],
+"virustotal.com":["VirusTotal","فحص الملفات والروابط ضد عشرات محركات الحماية","أمن"],
+"cyberchef.org":["CyberChef","تشفير وفك وتحويل البيانات بسلاسل عمليات","أمن"],
+"gchq.github.io":["CyberChef","تشفير وفك وتحويل البيانات بسلاسل عمليات","أمن"],
+"exploit-db.com":["Exploit-DB","قاعدة بيانات ثغرات وأكواد استغلال","أمن"],
+"book.hacktricks.xyz":["HackTricks","شروحات وحيل اختبار الاختراق","أمن"],
+"owasp.org":["OWASP","معايير وإرشادات أمن تطبيقات الويب","أمن"],
+"cve.org":["CVE","سجل الثغرات الأمنية المعروفة","أمن"],
+"nvd.nist.gov":["NVD","تفاصيل وتقييم CVSS للثغرات","أمن"],
+"crt.sh":["crt.sh","البحث في شهادات SSL لاكتشاف النطاقات الفرعية","أمن"],
+"urlscan.io":["urlscan.io","فحص وتحليل سلوك الروابط المشبوهة","أمن"],
+"hackthebox.com":["Hack The Box","منصة تدريب عملي على الاختراق","تعلم"],
+"tryhackme.com":["TryHackMe","غرف تعليمية موجهة للأمن السيبراني","تعلم"],
+"claude.ai":["Claude","مساعد ذكاء اصطناعي للكتابة والكود","ذكاء اصطناعي"]
+};
+var SEED=["github.com","stackoverflow.com","developer.mozilla.org","shodan.io","virustotal.com","cyberchef.org","exploit-db.com","book.hacktricks.xyz","owasp.org"];
+var $=function(i){return document.getElementById(i)};
+var items=[],comm=[],stat=[],cat="الكل",editId=null,view="mine",db=null,sample=null;
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function load(){try{var r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return null}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(items))}catch(e){}}
+function norm(v){v=v.trim();if(!v)return null;if(!/^https?:\/\//i.test(v))v="https://"+(v.indexOf(".")<0?v+".com":v);try{var u=new URL(v);return{url:u.href,host:u.hostname.replace(/^www\./,"")}}catch(e){return null}}
+function known(host){if(KNOWN[host])return KNOWN[host];for(var k in KNOWN){if(host.slice(-k.length-1)==="."+k)return KNOWN[k]}return null}
+function mk(url,name,desc,c){var n=norm(url);if(!n)return null;var k=known(n.host);
+return{id:Date.now()+Math.random().toString(36).slice(2,6),url:n.url,host:n.host,name:name||(k?k[0]:n.host.split(".")[0]),desc:desc||(k?k[1]:""),cat:c||(k?k[2]:"عام")}}
+function color(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%360;return"hsl("+h+",55%,45%)"}
+function sid(h){return h.replace(/[^a-z0-9]+/g,"-")}
+function has(h){return items.some(function(i){return i.host===h})}
+function community(){var m={};stat.concat(comm).forEach(function(x){if(x&&x.host)m[x.host]=x});return Object.keys(m).map(function(k){var x=m[k];return{id:"c-"+sid(k),url:x.url,host:x.host,name:x.name,desc:x.desc||"",cat:x.cat||"عام"}})}
+function src(){return view==="mine"?items:community()}
+function cats(){var s={};src().forEach(function(i){s[i.cat]=1});return Object.keys(s)}
+function card(i,o){o=o||{};
+return'<a class="c'+(o.sg?" sg":"")+'" href="'+esc(i.url)+'" target="_blank" rel="noopener noreferrer" data-id="'+esc(i.id)+'">'+
+'<div class="ic" style="background:'+color(i.host)+'">'+esc(i.name.charAt(0).toUpperCase())+
+'<img alt="" src="https://www.google.com/s2/favicons?domain='+encodeURIComponent(i.host)+'&sz=64" onerror="this.remove()"></div>'+
+'<div><div class="nm">'+esc(i.name)+'</div><div class="ds">'+(esc(i.desc)||"—")+'</div>'+
+(o.why?'<div class="why">💡 '+esc(o.why)+'</div>':'')+'<span class="ct">'+esc(i.cat)+'</span>'+
+((o.add||(view==="community"&&!o.sg))&&!has(i.host)?'<br><button class="ad" data-a="'+esc(i.host)+'" data-u="'+esc(i.url)+'" data-n="'+esc(i.name)+'" data-d="'+esc(i.desc)+'" data-k="'+esc(i.cat)+'">＋ أضفه لقائمتي</button>':(o.add||view==="community"?'<br><span class="hint">✓ في قائمتك</span>':''))+'</div>'+
+(view==="mine"&&!o.sg&&!o.add?'<div class="x"><button data-e="'+esc(i.id)+'">تعديل</button><button data-d="'+esc(i.id)+'" style="color:var(--dg)">حذف</button></div>':'')+'</a>'}
+function render(){
+var q=$("q").value.trim().toLowerCase();
+$("vt").innerHTML='<button class="tab'+(view==="mine"?" on":"")+'" data-v="mine">قائمتي ('+items.length+')</button><button class="tab'+(view==="community"?" on":"")+'" data-v="community">🌍 المجتمع ('+community().length+')</button>';
+var S=src(),cs=["الكل"].concat(cats());if(cs.indexOf(cat)<0)cat="الكل";
+$("tabs").innerHTML=cs.map(function(c){return'<button class="tab'+(c===cat?" on":"")+'" data-c="'+esc(c)+'">'+esc(c)+"</button>"}).join("");
+$("cl").innerHTML=cats().map(function(c){return'<option value="'+esc(c)+'">'}).join("");
+var l=S.filter(function(i){return(cat==="الكل"||i.cat===cat)&&(!q||(i.name+" "+i.desc+" "+i.host+" "+i.cat).toLowerCase().indexOf(q)>=0)});
+$("g").innerHTML=l.length?l.map(function(i){return card(i)}).join(""):'<div class="empty" style="grid-column:1/-1">لا نتائج. جرّب «✨ بحث ذكي» أو أضف الموقع.</div>'}
+function openForm(it){editId=it?it.id:null;$("fm").classList.add("on");$("fu").value=it?it.url:"";$("fn").value=it?it.name:"";$("fc").value=it?it.cat:"";$("fd").value=it?it.desc:"";$("fh").textContent="";$("fsl").hidden=!db||!!it;$("fu").focus()}
+function closeForm(){$("fm").classList.remove("on");editId=null}
+function share(m){if(!db||!m)return;try{var r=db.doc("sites/"+sid(m.host));r.get().then(function(x){if(!x.exists)r.set({url:m.url,host:m.host,name:m.name,desc:m.desc,cat:m.cat,ts:Date.now()})}).catch(function(){})}catch(e){}}
+$("tg").onclick=function(){$("fm").classList.contains("on")?closeForm():openForm()};
+$("cn").onclick=closeForm;
+$("fu").oninput=function(){var n=norm($("fu").value);if(!n)return;var k=known(n.host);
+$("fh").textContent=k?"✓ موقع معروف: تم اقتراح الاسم والوصف والتصنيف تلقائيًا":"موقع جديد: اكتب وصفًا مختصرًا"+(sample?" أو اضغط «وصف تلقائي»":"");
+if(k&&!editId){if(!$("fn").value)$("fn").value=k[0];if(!$("fd").value)$("fd").value=k[1];if(!$("fc").value)$("fc").value=k[2]}};
+$("ai").onclick=function(){var n=norm($("fu").value);if(!n||!sample){$("fh").textContent="⚠ أدخل الرابط أولًا";return}
+$("fh").textContent="⏳ جارٍ التحليل…";
+sample.json('Website: '+n.url+'\nReturn ONLY JSON: {"name":"official short name","desc":"one short Arabic sentence (max 14 words) saying what it does and when to use it","cat":"one short Arabic category"}. If unsure what the site is, make desc generic from the domain.',{modelTier:"quick"}).then(function(r){
+if(r.name&&!$("fn").value)$("fn").value=r.name;if(r.desc)$("fd").value=r.desc;if(r.cat&&!$("fc").value)$("fc").value=r.cat;$("fh").textContent="✓ تم، راجع الوصف قبل الحفظ"}).catch(function(){$("fh").textContent="⚠ تعذر التوليد التلقائي، اكتب الوصف يدويًا"})};
+$("sv").onclick=function(){var n=norm($("fu").value);if(!n){$("fh").textContent="⚠ أدخل رابطًا أو اسم موقع صحيحًا";return}
+var m=mk($("fu").value,$("fn").value.trim(),$("fd").value.trim(),$("fc").value.trim());
+if(editId){items=items.map(function(i){if(i.id!==editId)return i;m.id=i.id;return m})}
+else{if(has(n.host)){$("fh").textContent="⚠ هذا الموقع مضاف بالفعل";return}
+items.unshift(m);if(db&&$("fs").checked)share(m)}
+save();closeForm();view="mine";render()};
+$("q").oninput=render;
+$("q").onkeydown=function(e){if(e.key==="Enter"&&sample)smart()};
+$("vt").onclick=function(e){var v=e.target.getAttribute("data-v");if(v){view=v;cat="الكل";render()}};
+$("tabs").onclick=function(e){var c=e.target.getAttribute("data-c");if(c){cat=c;render()}};
+function addMine(b){var m=mk(b.getAttribute("data-u"),b.getAttribute("data-n"),b.getAttribute("data-d"),b.getAttribute("data-k"));if(m&&!has(m.host)){items.unshift(m);save();render();if($("rs").classList.contains("on"))$("rs").classList.remove("on")}}
+function clicks(e){var t=e.target,d=t.getAttribute("data-d")&&t.tagName==="BUTTON"&&t.hasAttribute("style"),ed=t.getAttribute("data-e"),a=t.getAttribute("data-a");
+if(a){e.preventDefault();addMine(t);return}
+if(d){e.preventDefault();var id=t.getAttribute("data-d");if(confirm("حذف هذا الموقع من قائمتك؟")){items=items.filter(function(i){return i.id!==id});save();render()}}
+else if(ed){e.preventDefault();openForm(items.filter(function(i){return i.id===ed})[0])}}
+$("g").onclick=clicks;
+$("rs").onclick=function(e){if(e.target.id==="rx"){$("rs").classList.remove("on");return}clicks(e)};
+function smart(){var q=$("q").value.trim();if(!q||!sample)return;
+var pool=items.concat(community()),seen={},lines=[];pool.forEach(function(i){if(!seen[i.host]&&lines.length<120){seen[i.host]=1;lines.push(i.host+" | "+i.name+" | "+i.desc+" | "+i.cat)}});
+var rs=$("rs");rs.classList.add("on");rs.innerHTML='<h3>⏳ جارٍ اختيار أنسب المواقع لطلبك…</h3>';
+var p='User need (Arabic or English): '+JSON.stringify(q)+'\nCandidate tools, one per line as host | name | description | category:\n'+lines.join("\n")+'\n\nReturn ONLY JSON: {"matches":[{"host":"...","why":"one short Arabic sentence on why it fits"}],"suggestions":[{"url":"https://...","name":"...","desc":"one short Arabic sentence","cat":"short Arabic category","why":"short Arabic reason"}]}\nRules: matches = up to 5 best fits ordered by relevance, hosts must be copied exactly from the list, empty if none truly fits. suggestions = up to 3 well-known, real, reputable websites NOT in the list that fit the need, only if you are confident they exist, otherwise [].';
+sample.json(p,{modelTier:"quick",cache:false}).then(function(r){
+var by={};pool.forEach(function(i){by[i.host]=i});
+var m=(r.matches||[]).filter(function(x){return by[x.host]}).slice(0,5),sg=(r.suggestions||[]).filter(function(x){return x.url&&norm(x.url)&&!by[norm(x.url).host]}).slice(0,3);
+var h='<h3>✨ أنسب المواقع لطلبك: «'+esc(q)+'» <button id="rx" class="ad" style="float:left;margin:0">إغلاق</button></h3>';
+if(m.length){h+='<div class="grid">'+m.map(function(x){return card(by[x.host],{why:x.why,add:true})}).join("")+'</div>'}
+else h+='<div class="hint">لا يوجد في القائمة ما يناسب هذا الطلب.</div>';
+if(sg.length){h+='<h3 style="margin-top:14px">💡 اقتراحات من خارج القائمة (راجع الرابط قبل الاستخدام)</h3><div class="grid">'+sg.map(function(x){var n=norm(x.url);return card({id:"s-"+n.host,url:n.url,host:n.host,name:x.name||n.host,desc:x.desc||"",cat:x.cat||"عام"},{why:x.why,sg:true,add:true})}).join("")+'</div>'}
+rs.innerHTML=h}).catch(function(e){rs.innerHTML='<h3>⚠ تعذر البحث الذكي الآن</h3><div class="hint">'+(e&&e.code==="not_granted"?"لم يتم منح الإذن.":e&&e.code==="rate_limited"?"تجاوزت الحد المسموح، انتظر دقيقة.":"جرّب مرة أخرى.")+'</div>'})}
+$("sb").onclick=smart;
+function exp(){var j=JSON.stringify(items,null,2);if(window.claude&&claude.use){claude.use("downloads").then(function(d){if(d)d.save({filename:"toolbox.json",data:j}).catch(function(){});else dl(j)}).catch(function(){dl(j)})}else dl(j)}
+function dl(j){var b=new Blob([j],{type:"application/json"});var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="toolbox.json";a.click()}
+$("ex").onclick=exp;
+$("im").onclick=function(){$("fi").click()};
+$("fi").onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var d=JSON.parse(r.result);d.forEach(function(x){if(x.url&&!items.some(function(i){return i.host===x.host})){var m=mk(x.url,x.name,x.desc,x.cat);if(m)items.push(m)}});save();render()}catch(e){alert("ملف غير صالح")}};r.readAsText(f)};
+items=load()||SEED.map(function(h){return mk(h)});
+render();
+try{fetch("community.json").then(function(r){return r.ok?r.json():[]}).then(function(d){if(Array.isArray(d)){stat=d.filter(function(x){return x&&x.url}).map(function(x){var n=norm(x.url);return n&&{url:n.url,host:n.host,name:x.name||n.host,desc:x.desc,cat:x.cat}}).filter(Boolean);render()}}).catch(function(){})}catch(e){}
+if(window.claude&&claude.use){
+claude.use("db").then(function(d){if(!d)return;db=d;try{d.collection("sites").onSnapshot(function(sn){comm=sn.docs.map(function(x){return x.data()||{}});render()},function(){})}catch(e){}}).catch(function(){});
+claude.use("sample").then(function(sm){if(!sm)return;sample=sm;$("sb").hidden=false;$("ai").hidden=false}).catch(function(){})}
+if(WORKER&&!(window.claude&&claude.use)){
+sample={json:function(prompt){
+var c=new AbortController(),t=setTimeout(function(){c.abort()},30000);
+return fetch(WORKER,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt:prompt}),signal:c.signal})
+.then(function(r){clearTimeout(t);return r.ok?r.json():Promise.reject({code:r.status===429?"rate_limited":"http"})})
+.then(function(d){var x=String(d.text||"").replace(/```json|```/g,""),i=x.indexOf("{"),j=x.lastIndexOf("}");
+if(i<0||j<i)return Promise.reject({code:"parse"});return JSON.parse(x.slice(i,j+1))})}};
+$("sb").hidden=false;$("ai").hidden=false}
+var ip=null;
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();ip=e;$("ib").hidden=false});
+$("ib").onclick=function(){if(!ip)return;ip.prompt();ip.userChoice.then(function(){ip=null;$("ib").hidden=true})};
+window.addEventListener("appinstalled",function(){$("ib").hidden=true});
+if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(function(){});
+})();
+</script>
+</body>
+</html>

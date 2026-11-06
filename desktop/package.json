@@ -1,0 +1,33 @@
+{
+  "name": "toolbox-desktop",
+  "version": "1.0.0",
+  "description": "صندوق الأدوات - تطبيق سطح المكتب",
+  "main": "main.js",
+  "author": "Toolbox",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prepare-app": "node scripts/copy-web.js",
+    "start": "npm run prepare-app && electron .",
+    "dist": "npm run prepare-app && electron-builder --win --publish never"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.toolbox.desktop",
+    "productName": "Toolbox",
+    "files": ["main.js", "app/**/*", "build/icon.png"],
+    "directories": { "buildResources": "build", "output": "dist" },
+    "win": { "target": ["nsis", "portable"], "icon": "build/icon.ico" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": true,
+      "artifactName": "Toolbox-Setup-${version}.${ext}"
+    },
+    "portable": { "artifactName": "Toolbox-Portable-${version}.${ext}" }
+  }
+}

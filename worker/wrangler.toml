@@ -1,0 +1,14 @@
+name = "toolbox-ai"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# رابط موقعك على GitHub Pages (بدون / في الآخر) + app://toolbox لتطبيق سطح المكتب. افصل بفاصلة.
+ALLOWED_ORIGIN = "https://USERNAME.github.io,app://toolbox"
+# MODEL = "claude-haiku-5-5"
+
+# Rate limiting (اختياري، راجع توثيق Cloudflare للصيغة الحالية قبل التفعيل):
+# [[ratelimits]]
+# name = "LIMITER"
+# namespace_id = "1001"
+# simple = { limit = 20, period = 60 }
